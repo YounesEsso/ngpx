@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NGPX//ACADEMY — US Power & Gas Training</title>
+    <meta name="description" content="US Power & Natural Gas trading curriculum — 6 tiers from Foundations through Graduate level." />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
