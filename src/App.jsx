@@ -1078,7 +1078,7 @@ export default function App() {
     return () => subscription.unsubscribe();
   }, []);
 
-  const loadProgress = async (u) => {
+ const loadProgress = async (u) => {
     const { data } = await supabase.from("progress").select("*").eq("id", u.id).single();
     if (data) {
       setProgress({
@@ -1090,6 +1090,21 @@ export default function App() {
         totalCorrect: data.total_correct||0,
         timeSpentSeconds: data.time_spent_seconds||0,
       });
+    } else {
+      setProgress(defaultProgress);
+      await supabase.from("progress").upsert({
+        id: u.id,
+        email: u.email,
+        full_name: u.user_metadata?.full_name || u.email,
+        level: 1,
+        placed: false,
+        completed_modules: {},
+        trivia_high_score: 0,
+        total_answered: 0,
+        total_correct: 0,
+        time_spent_seconds: 0,
+        updated_at: new Date().toISOString(),
+      }, { onConflict: "id" });
     }
   };
 
