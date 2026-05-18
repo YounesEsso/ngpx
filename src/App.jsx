@@ -478,7 +478,7 @@ function LoginPage({ onBack, onSuccess }) {
 }
 
 // ── ADMIN DASHBOARD ──
-function AdminDashboard({ user, onSignOut }) {
+function AdminDashboard({ user, onSignOut, onViewAsStudent }) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(null);
@@ -506,10 +506,14 @@ function AdminDashboard({ user, onSignOut }) {
           <span className="font-mono text-sm tracking-wider">NGPX//ACADEMY</span>
           <Pill color="fuchsia">ADMIN</Pill>
         </div>
-        <div className="flex items-center gap-3">
+   <div className="flex items-center gap-3">
           <span className="font-mono text-xs text-zinc-400">Younes Essoulami</span>
+          <button onClick={onViewAsStudent} className="font-mono text-[10px] text-zinc-500 hover:text-lime-400 uppercase tracking-wider flex items-center gap-1">
+            ▸ Student View
+          </button>
+        {onBackToAdmin && <button onClick={onBackToAdmin} className="font-mono text-[10px] text-zinc-500 hover:text-lime-400 uppercase tracking-wider">▸ Admin</button>}
           <button onClick={onSignOut} className="font-mono text-[10px] text-zinc-500 hover:text-rose-400 uppercase tracking-wider flex items-center gap-1">
-            <LogOut size={12}/> Sign out
+            <LogOut size={11}/> out
           </button>
         </div>
       </header>
@@ -623,7 +627,7 @@ function AdminDashboard({ user, onSignOut }) {
 }
 
 // ── MAIN APP (same as before but with Supabase save) ──
-function MainApp({ user, progress, setProgress, onSignOut }) {
+function MainApp({ user, progress, setProgress, onSignOut, onBackToAdmin }) {
   const [view, setView] = useState(progress.placed ? "dashboard" : "welcome");
   const [activeModuleId, setActiveModuleId] = useState(null);
   const [placementScore, setPlacementScore] = useState(0);
@@ -1048,6 +1052,7 @@ export default function App() {
   const [appView, setAppView] = useState("loading");
   const [user, setUser] = useState(null);
   const [progress, setProgress] = useState(defaultProgress);
+  const [studentView, setStudentView] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(async ({ data: { session } }) => {
@@ -1103,10 +1108,10 @@ export default function App() {
   if (appView==="login") return <LoginPage onBack={()=>setAppView("landing")} onSuccess={()=>setAppView("app")}/>;
 
   if (appView==="app" && user) {
-    if (ADMIN_EMAILS.includes(user.email)) {
-      return <AdminDashboard user={user} onSignOut={signOut}/>;
+    if (ADMIN_EMAILS.includes(user.email) && !studentView) {
+      return <AdminDashboard user={user} onSignOut={signOut} onViewAsStudent={()=>setStudentView(true)}/>;
     }
-    return <MainApp user={user} progress={progress} setProgress={setProgress} onSignOut={signOut}/>;
+    return <MainApp user={user} progress={progress} setProgress={setProgress} onSignOut={()=>{setStudentView(false);signOut();}} onBackToAdmin={ADMIN_EMAILS.includes(user.email)?()=>setStudentView(false):null}/>;
   }
 
   return null;
