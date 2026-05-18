@@ -1122,12 +1122,12 @@ export default function App() {
   if (appView==="landing") return <LandingPage onLogin={()=>setAppView("login")}/>;
   if (appView==="login") return <LoginPage onBack={()=>setAppView("landing")} onSuccess={()=>setAppView("app")}/>;
 
-  if (appView==="app" && user) {
+if (appView==="app" && user) {
     if (ADMIN_EMAILS.includes(user.email) && !studentView) {
       return <AdminDashboard user={user} onSignOut={signOut} onViewAsStudent={()=>setStudentView(true)}/>;
     }
     const isAdmin = ADMIN_EMAILS.includes(user.email);
-return <MainApp user={user} progress={progress} setProgress={setProgress} onSignOut={()=>{setStudentView(false);signOut();}} onBackToAdmin={isAdmin?()=>setStudentView(false):null}/>;
+    return <MainApp user={user} progress={progress} setProgress={setProgress} onSignOut={()=>{setStudentView(false);signOut();}} onBackToAdmin={isAdmin?()=>setStudentView(false):null}/>;
   }
 
   return null;
