@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import { Zap, Flame, ChevronRight, ArrowLeft, Check, X, Trophy, Target, Database, Shuffle, LogOut, Users, BarChart2, Clock, Award } from "lucide-react";
 import { supabase } from "./supabase.js";
 
-const ADMIN_EMAIL = "younes.essoulami@gmail.com";
+const ADMIN_EMAIL = "younes.essoulami@engie.com";
 
 // ============================================================================
 // TOPIC TAXONOMY
