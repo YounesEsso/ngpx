@@ -511,7 +511,7 @@ function AdminDashboard({ user, onSignOut, onViewAsStudent }) {
           <button onClick={onViewAsStudent} className="font-mono text-[10px] text-zinc-500 hover:text-lime-400 uppercase tracking-wider flex items-center gap-1">
             ▸ Student View
           </button>
-        {onBackToAdmin && <button onClick={onBackToAdmin} className="font-mono text-[10px] text-zinc-500 hover:text-lime-400 uppercase tracking-wider">▸ Admin</button>}
+    
           <button onClick={onSignOut} className="font-mono text-[10px] text-zinc-500 hover:text-rose-400 uppercase tracking-wider flex items-center gap-1">
             <LogOut size={11}/> out
           </button>
@@ -627,7 +627,7 @@ function AdminDashboard({ user, onSignOut, onViewAsStudent }) {
 }
 
 // ── MAIN APP (same as before but with Supabase save) ──
-function MainApp({ user, progress, setProgress, onSignOut, onBackToAdmin }) {
+function MainApp({ user, progress, setProgress, onSignOut }) {
   const [view, setView] = useState(progress.placed ? "dashboard" : "welcome");
   const [activeModuleId, setActiveModuleId] = useState(null);
   const [placementScore, setPlacementScore] = useState(0);
@@ -1127,7 +1127,7 @@ if (appView==="app" && user) {
       return <AdminDashboard user={user} onSignOut={signOut} onViewAsStudent={()=>setStudentView(true)}/>;
     }
     const isAdmin = ADMIN_EMAILS.includes(user.email);
-    return <MainApp user={user} progress={progress} setProgress={setProgress} onSignOut={()=>{setStudentView(false);signOut();}} onBackToAdmin={isAdmin?()=>setStudentView(false):null}/>;
+    return <MainApp user={user} progress={progress} setProgress={setProgress} onSignOut={()=>{setStudentView(false);signOut();}}/>;
   }
 
   return null;
