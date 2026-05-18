@@ -1126,7 +1126,8 @@ export default function App() {
     if (ADMIN_EMAILS.includes(user.email) && !studentView) {
       return <AdminDashboard user={user} onSignOut={signOut} onViewAsStudent={()=>setStudentView(true)}/>;
     }
-    return <MainApp user={user} progress={progress} setProgress={setProgress} onSignOut={()=>{setStudentView(false);signOut();}} onBackToAdmin={ADMIN_EMAILS.includes(user.email)?()=>setStudentView(false):null}/>;
+    const isAdmin = ADMIN_EMAILS.includes(user.email);
+return <MainApp user={user} progress={progress} setProgress={setProgress} onSignOut={()=>{setStudentView(false);signOut();}} onBackToAdmin={isAdmin?()=>setStudentView(false):null}/>;
   }
 
   return null;
