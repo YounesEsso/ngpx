@@ -574,7 +574,7 @@ function LandingPage({onLogin}){
         <div className="text-center mb-16">
           <div className="font-mono text-xs text-lime-400 uppercase tracking-[0.3em] mb-4">US Power & Natural Gas</div>
           <h1 className="font-mono text-4xl font-bold text-zinc-100 mb-4">NGPX//ACADEMY</h1>
-          <p className="font-mono text-zinc-400 text-sm max-w-xl mx-auto leading-relaxed">Professional training curriculum for energy traders, analysts, and practitioners — from fundamentals through graduate-level quant methods.</p>
+          <p className="font-mono text-zinc-400 text-sm max-w-xl mx-auto leading-relaxed">Professional training curriculum for energy traders, analysts, and practitioners. From fundamentals through graduate-level quant methods.</p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-12">
           {[["34","Modules"],["340+","Questions"],["11","Topic Areas"],["6","Difficulty Tiers"]].map(([n,l])=>(
